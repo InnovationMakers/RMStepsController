@@ -215,6 +215,36 @@
     }
 }
 
+-(void)showFirstStep {
+    NSInteger index = [self.childViewControllers indexOfObject:self.currentStepViewController];
+    if (index != 0) {
+        UIViewController* firstStepViewController = [self.childViewControllers firstObject];
+        [self showStepViewController:firstStepViewController animated:YES];
+    } else {
+        [self canceled];
+    }
+}
+
+-(void)showLastStep {
+    NSInteger index = [self.childViewControllers indexOfObject:self.currentStepViewController];
+    if (index != [self.childViewControllers indexOfObject:[self.childViewControllers lastObject]]) {
+        UIViewController* lastStepViewController = [self.childViewControllers lastObject];
+        [self showStepViewController:lastStepViewController animated:YES];
+    } else {
+        [self canceled];
+    }
+}
+
+-(void)showStepAtIndex:(NSInteger)index {
+    NSInteger currentIndex = [self.childViewControllers indexOfObject:self.currentStepViewController];
+    if (index != currentIndex) {
+        UIViewController* vc = [self.childViewControllers objectAtIndex:index];
+        [self showStepViewController:vc animated:YES];
+    } else {
+        [self canceled];
+    }
+}
+
 - (void)finishedAllSteps {
     NSLog(@"Finished");
 }

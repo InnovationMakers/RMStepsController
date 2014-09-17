@@ -26,7 +26,7 @@
 
 #import "RMStepsBar.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import <PixateFreestyle/PixateFreestyle.h>
 #import "RMStep.h"
 
 #define RM_CANCEL_BUTTON_WIDTH 50
@@ -74,8 +74,8 @@
         self.backgroundColor = [UIColor clearColor];
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
-        [self.layer addSublayer:self.leftShapeLayer];
-        [self.layer addSublayer:self.rightShapeLayer];
+//        [self.layer addSublayer:self.leftShapeLayer];
+//        [self.layer addSublayer:self.rightShapeLayer];
     }
     return self;
 }
@@ -168,22 +168,6 @@
     [self.rightShapeLayer setPosition:CGPointMake(0, 0)];
 }
 
-#pragma mark - Drawing
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    
-    UIBezierPath *bezier = [UIBezierPath bezierPath];
-    [bezier moveToPoint:CGPointMake(0, 0)];
-    [bezier addLineToPoint:CGPointMake(self.frame.size.width, self.frame.size.height/2)];
-    [bezier addLineToPoint:CGPointMake(0, self.frame.size.height)];
-    
-    [bezier setLineWidth:1.0];
-    [bezier setLineJoinStyle:kCGLineJoinBevel];
-    
-    [self.seperatorColor setStroke];
-    [bezier stroke];
-}
-
 #pragma mark - Animations
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     if(flag) {
@@ -201,8 +185,8 @@
 
 @interface RMStepsBar ()
 
-@property (nonatomic, strong) UIView *topLine;
-@property (nonatomic, strong) UIView *bottomLine;
+//@property (nonatomic, strong) UIView *topLine;
+//@property (nonatomic, strong) UIView *bottomLine;
 @property (nonatomic, strong) UIView *cancelSeperator;
 
 @property (nonatomic, strong) NSLayoutConstraint *cancelButtonXConstraint;
@@ -223,33 +207,32 @@
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.clipsToBounds = YES;
         
-        self.topLine.frame = CGRectMake(0, frame.size.height-44, frame.size.width, 1);
-        [self addSubview:self.topLine];
-        
-        self.bottomLine.frame = CGRectMake(0, frame.size.height-1, frame.size.width, 1);
-        [self addSubview:self.bottomLine];
+//        self.topLine.frame = CGRectMake(0, frame.size.height-44, frame.size.width, 1);
+//        [self addSubview:self.topLine];
+//        
+//        self.bottomLine.frame = CGRectMake(0, frame.size.height-1, frame.size.width, 1);
+//        [self addSubview:self.bottomLine];
         
         self.cancelButton.frame = CGRectMake(0, frame.size.height-43, RM_CANCEL_BUTTON_WIDTH, 42);
         [self addSubview:self.cancelButton];
+        [self setTranslucent:NO];
         
         self.cancelSeperator.frame = CGRectMake(RM_CANCEL_BUTTON_WIDTH, frame.size.height-44, 1, frame.size.height);
         [self addSubview:self.cancelSeperator];
         
         NSNumber *cancelWidth = @(RM_CANCEL_BUTTON_WIDTH);
         
-        NSDictionary *bindingsDict = NSDictionaryOfVariableBindings(_topLine, _bottomLine, _cancelButton, _cancelSeperator);
+        NSDictionary *bindingsDict = NSDictionaryOfVariableBindings(/*_topLine, _bottomLine,*/ _cancelButton, _cancelSeperator);
         NSDictionary *metricsDict = NSDictionaryOfVariableBindings(cancelWidth);
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(0)-[_topLine]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(0)-[_bottomLine]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_cancelButton(cancelWidth)]-(0)-[_cancelSeperator(1)]" options:0 metrics:metricsDict views:bindingsDict]];
+         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_cancelButton(cancelWidth)]-(0)-[_cancelSeperator(1)]" options:0 metrics:metricsDict views:bindingsDict]];
         
         self.cancelButtonXConstraint = [[NSLayoutConstraint constraintsWithVisualFormat:@"|-(0)-[_cancelButton]" options:0 metrics:metricsDict views:bindingsDict] lastObject];
         [self addConstraint:self.cancelButtonXConstraint];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_topLine(1)]-(42)-[_bottomLine(1)]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cancelButton(42)]-(1)-|" options:0 metrics:metricsDict views:bindingsDict]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cancelSeperator(42)]-(1)-|" options:0 metrics:metricsDict views:bindingsDict]];
+//        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_topLine(1)]-(42)-[_bottomLine(1)]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cancelButton(44)]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_cancelSeperator(44)]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
         
         [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(recognizedTap:)]];
     }
@@ -269,8 +252,8 @@
     if(newSeperatorColor != _seperatorColor) {
         _seperatorColor = newSeperatorColor;
         
-        self.topLine.backgroundColor = newSeperatorColor;
-        self.bottomLine.backgroundColor = newSeperatorColor;
+//        self.topLine.backgroundColor = newSeperatorColor;
+//        self.bottomLine.backgroundColor = newSeperatorColor;
         
         for(NSDictionary *aStepDict in self.stepDictionaries) {
             if(aStepDict[RM_RIGHT_SEPERATOR_KEY]) {
@@ -280,25 +263,25 @@
     }
 }
 
-- (UIView *)topLine {
-    if(!_topLine) {
-        self.topLine = [[UIView alloc] initWithFrame:CGRectZero];
-        _topLine.backgroundColor = self.seperatorColor;
-        _topLine.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    
-    return _topLine;
-}
-
-- (UIView *)bottomLine {
-    if(!_bottomLine) {
-        self.bottomLine = [[UIView alloc] initWithFrame:CGRectZero];
-        _bottomLine.backgroundColor = self.seperatorColor;
-        _bottomLine.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    
-    return _bottomLine;
-}
+//- (UIView *)topLine {
+//    if(!_topLine) {
+//        self.topLine = [[UIView alloc] initWithFrame:CGRectZero];
+//        _topLine.backgroundColor = self.seperatorColor;
+//        _topLine.translatesAutoresizingMaskIntoConstraints = NO;
+//    }
+//    
+//    return _topLine;
+//}
+//
+//- (UIView *)bottomLine {
+//    if(!_bottomLine) {
+//        self.bottomLine = [[UIView alloc] initWithFrame:CGRectZero];
+//        _bottomLine.backgroundColor = self.seperatorColor;
+//        _bottomLine.translatesAutoresizingMaskIntoConstraints = NO;
+//    }
+//    
+//    return _bottomLine;
+//}
 
 - (void)setHideCancelButton:(BOOL)newHideCancelButton {
     [self setHideCancelButton:newHideCancelButton animated:NO];
@@ -389,10 +372,11 @@
         
         if(blockself.indexOfSelectedStep > idx) {
             void (^stepAnimations)(void) = ^(void) {
-                step.stepView.backgroundColor = step.enabledBarColor;
+               // step.stepView.backgroundColor = step.enabledBarColor;
+                [step.stepView setStyleClass:@"stepView-enabled"];
                 step.titleLabel.textColor = step.enabledTextColor;
                 step.numberLabel.textColor = step.enabledTextColor;
-                step.circleLayer.strokeColor = step.enabledTextColor.CGColor;
+//                step.circleLayer.strokeColor = step.enabledTextColor.CGColor;
             };
             
             if(animated)
@@ -404,10 +388,11 @@
             [rightSeperator setLeftColor:step.enabledBarColor animated:animated];
         } else if(blockself.indexOfSelectedStep == idx) {
             void (^stepAnimations)(void) = ^(void) {
-                step.stepView.backgroundColor = step.selectedBarColor;
+                //step.stepView.backgroundColor = step.selectedBarColor;
+                [step.stepView setStyleClass:@"stepView-selected"];
                 step.titleLabel.textColor = step.selectedTextColor;
                 step.numberLabel.textColor = step.selectedTextColor;
-                step.circleLayer.strokeColor = step.selectedTextColor.CGColor;
+//                step.circleLayer.strokeColor = step.selectedTextColor.CGColor;
             };
             
             if(animated)
@@ -419,10 +404,11 @@
             [rightSeperator setLeftColor:step.selectedBarColor animated:animated];
         } else if(blockself.indexOfSelectedStep < idx) {
             void (^stepAnimations)(void) = ^(void) {
-                step.stepView.backgroundColor = step.disabledBarColor;
+               // step.stepView.backgroundColor = step.disabledBarColor;
+                [step.stepView setStyleClass:@"stepView-disabled"];
                 step.titleLabel.textColor = step.disabledTextColor;
                 step.numberLabel.textColor = step.disabledTextColor;
-                step.circleLayer.strokeColor = step.disabledTextColor.CGColor;
+//                step.circleLayer.strokeColor = step.disabledTextColor.CGColor;
             };
             
             if(animated)
@@ -475,12 +461,12 @@
         NSDictionary *bindingsDict = NSDictionaryOfVariableBindings(leftEnd, rightEnd, stepView);
         NSDictionary *metricsDict = NSDictionaryOfVariableBindings(minimalStepWidth, seperatorWidth);
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[stepView(42)]-(1)-|" options:0 metrics:metricsDict views:bindingsDict]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[stepView(44)]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
         if(rightSeperator) {
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[leftEnd]-(0)-[stepView]-(0)-[rightEnd]" options:0 metrics:metricsDict views:bindingsDict]];
             
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[rightEnd(seperatorWidth)]" options:0 metrics:metricsDict views:bindingsDict]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[rightEnd(42)]-(1)-|" options:0 metrics:metricsDict views:bindingsDict]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[rightEnd(44)]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
         } else {
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[leftEnd]-(0)-[stepView]-(0)-|" options:0 metrics:metricsDict views:bindingsDict]];
         }

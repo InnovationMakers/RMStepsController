@@ -75,6 +75,10 @@
  */
 - (void)showPreviousStep;
 
+-(void)showFirstStep;
+-(void)showLastStep;
+-(void)showStepAtIndex:(NSInteger)index;
+
 /**
  This method is called after `-[RMStepsController showNextStep]` has been called in the last step. A subclass of `RMStepsController` is supposed to do whatever needs to be done here after all steps have been finished.
  */

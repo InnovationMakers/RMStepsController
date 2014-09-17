@@ -32,7 +32,7 @@
 @property (nonatomic, strong, readwrite) UILabel *numberLabel;
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 
-@property (nonatomic, strong, readwrite) CAShapeLayer *circleLayer;
+//@property (nonatomic, strong, readwrite) CAShapeLayer *circleLayer;
 
 @end
 
@@ -44,7 +44,7 @@
         self.stepView = [[UIView alloc] initWithFrame:CGRectZero];
         _stepView.translatesAutoresizingMaskIntoConstraints = NO;
         
-        [_stepView.layer addSublayer:self.circleLayer];
+        //[_stepView.layer addSublayer:self.circleLayer];
         
         [_stepView addSubview:self.numberLabel];
         [_stepView addSubview:self.titleLabel];
@@ -90,20 +90,20 @@
     return _titleLabel;
 }
 
-- (CAShapeLayer *)circleLayer {
-    if(!_circleLayer) {
-        NSInteger radius = 12;
-        
-        self.circleLayer = [CAShapeLayer layer];
-        _circleLayer.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*radius, 2.0*radius) cornerRadius:radius].CGPath;
-        _circleLayer.position = CGPointMake(9, 10);
-        _circleLayer.fillColor = [UIColor clearColor].CGColor;
-        _circleLayer.strokeColor = self.disabledTextColor.CGColor;
-        _circleLayer.lineWidth = 1;
-    }
-    
-    return _circleLayer;
-}
+//- (CAShapeLayer *)circleLayer {
+//    if(!_circleLayer) {
+//        NSInteger radius = 12;
+//        
+////        self.circleLayer = [CAShapeLayer layer];
+////        _circleLayer.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*radius, 2.0*radius) cornerRadius:radius].CGPath;
+////        _circleLayer.position = CGPointMake(9, 10);
+////        _circleLayer.fillColor = [UIColor clearColor].CGColor;
+////        _circleLayer.strokeColor = self.disabledTextColor.CGColor;
+////        _circleLayer.lineWidth = 1;
+//    }
+//    
+//    return _circleLayer;
+//}
 
 - (void)setTitle:(NSString *)newTitle {
     if(_title != newTitle) {
@@ -113,29 +113,29 @@
     }
 }
 
-- (UIColor *)selectedBarColor {
-    if(!_selectedBarColor) {
-        self.selectedBarColor = [UIColor colorWithRed:23./255. green:220./255. blue:108./255. alpha:1];
-    }
-    
-    return _selectedBarColor;
-}
+//- (UIColor *)selectedBarColor {
+//    if(!_selectedBarColor) {
+//        self.selectedBarColor = [UIColor colorWithRed:23./255. green:220./255. blue:108./255. alpha:1];
+//    }
+//    
+//    return _selectedBarColor;
+//}
 
-- (UIColor *)enabledBarColor {
-    if(!_enabledBarColor) {
-        self.enabledBarColor = [UIColor colorWithWhite:142./255. alpha:0.5];
-    }
-    
-    return _enabledBarColor;
-}
+//- (UIColor *)enabledBarColor {
+//    if(!_enabledBarColor) {
+//        self.enabledBarColor = [UIColor colorWithWhite:142./255. alpha:0.5];
+//    }
+//    
+//    return _enabledBarColor;
+//}
 
-- (UIColor *)disabledBarColor {
-    if(!_disabledBarColor) {
-        self.disabledBarColor = [UIColor clearColor];
-    }
-    
-    return _disabledBarColor;
-}
+//- (UIColor *)disabledBarColor {
+//    if(!_disabledBarColor) {
+//        self.disabledBarColor = [UIColor clearColor];
+//    }
+//    
+//    return _disabledBarColor;
+//}
 
 - (UIColor *)selectedTextColor {
     if(!_selectedTextColor) {
