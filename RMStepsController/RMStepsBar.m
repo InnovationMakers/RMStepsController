@@ -372,11 +372,9 @@
         
         if(blockself.indexOfSelectedStep > idx) {
             void (^stepAnimations)(void) = ^(void) {
-               // step.stepView.backgroundColor = step.enabledBarColor;
                 [step.stepView setStyleClass:@"stepView-enabled"];
-                step.titleLabel.textColor = step.enabledTextColor;
-                step.numberLabel.textColor = step.enabledTextColor;
-//                step.circleLayer.strokeColor = step.enabledTextColor.CGColor;
+                [step.titleLabel setStyleClass:@"stepTitle-enabled"];
+                [step.numberLabel setStyleClass:@"stepNumber-enabled"];
             };
             
             if(animated)
@@ -388,11 +386,9 @@
             [rightSeperator setLeftColor:step.enabledBarColor animated:animated];
         } else if(blockself.indexOfSelectedStep == idx) {
             void (^stepAnimations)(void) = ^(void) {
-                //step.stepView.backgroundColor = step.selectedBarColor;
                 [step.stepView setStyleClass:@"stepView-selected"];
-                step.titleLabel.textColor = step.selectedTextColor;
-                step.numberLabel.textColor = step.selectedTextColor;
-//                step.circleLayer.strokeColor = step.selectedTextColor.CGColor;
+                [step.titleLabel setStyleClass:@"stepTitle-selected"];
+                [step.numberLabel setStyleClass:@"stepNumber-selected"];
             };
             
             if(animated)
@@ -404,11 +400,9 @@
             [rightSeperator setLeftColor:step.selectedBarColor animated:animated];
         } else if(blockself.indexOfSelectedStep < idx) {
             void (^stepAnimations)(void) = ^(void) {
-               // step.stepView.backgroundColor = step.disabledBarColor;
                 [step.stepView setStyleClass:@"stepView-disabled"];
-                step.titleLabel.textColor = step.disabledTextColor;
-                step.numberLabel.textColor = step.disabledTextColor;
-//                step.circleLayer.strokeColor = step.disabledTextColor.CGColor;
+                [step.titleLabel setStyleClass:@"stepTitle-disabled"];
+                [step.numberLabel setStyleClass:@"stepNumber-disabled"];
             };
             
             if(animated)
@@ -449,6 +443,7 @@
         }
         
         RMStep *step = [self.dataSource stepsBar:self stepAtIndex:i];
+        
         step.numberLabel.text = [NSString stringWithFormat:@"%lu", (long unsigned)i+1];
         [self addSubview:step.stepView];
         
@@ -499,7 +494,7 @@
         
         if(CGRectContainsPoint(step.stepView.frame, touchLocation)) {
             NSInteger index = [self.stepDictionaries indexOfObject:aStepDict];
-            if(index < self.indexOfSelectedStep) {
+            if(index < self.indexOfSelectedStep || (index == self.indexOfSelectedStep + 1 && index != [self.stepDictionaries indexOfObject:[self.stepDictionaries lastObject]])) {
                 [self.delegate stepsBar:self shouldSelectStepAtIndex:index];
             }
         }

@@ -55,7 +55,7 @@
         
         [_stepView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(40)-[titleLabel]-(0)-|" options:0 metrics:nil views:bindingsDict]];
         [_stepView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[titleLabel]-(0)-|" options:0 metrics:nil views:bindingsDict]];
-        [_stepView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(11)-[numberLabel]-(9)-[titleLabel]" options:0 metrics:nil views:bindingsDict]];
+        [_stepView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(11)-[numberLabel]-(0)-[titleLabel]" options:0 metrics:nil views:bindingsDict]];
         [_stepView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(0)-[numberLabel]-(0)-|" options:0 metrics:nil views:bindingsDict]];
     }
     
@@ -137,28 +137,28 @@
 //    return _disabledBarColor;
 //}
 
-- (UIColor *)selectedTextColor {
-    if(!_selectedTextColor) {
-        self.selectedTextColor = [UIColor colorWithWhite:1 alpha:1];
-    }
-    
-    return _selectedTextColor;
-}
-
-- (UIColor *)enabledTextColor {
-    if(!_enabledTextColor) {
-        self.enabledTextColor = [UIColor colorWithWhite:1 alpha:1];
-    }
-    
-    return _enabledTextColor;
-}
-
-- (UIColor *)disabledTextColor {
-    if(!_disabledTextColor) {
-        self.disabledTextColor = [UIColor colorWithWhite:0.75 alpha:1];
-    }
-    
-    return _disabledTextColor;
-}
+//- (UIColor *)selectedTextColor {
+//    if(!_selectedTextColor) {
+//        self.selectedTextColor = [UIColor colorWithWhite:1 alpha:1];
+//    }
+//    
+//    return _selectedTextColor;
+//}
+//
+//- (UIColor *)enabledTextColor {
+//    if(!_enabledTextColor) {
+//        self.enabledTextColor = [UIColor colorWithWhite:1 alpha:1];
+//    }
+//    
+//    return _enabledTextColor;
+//}
+//
+//- (UIColor *)disabledTextColor {
+//    if(!_disabledTextColor) {
+//        self.disabledTextColor = [UIColor colorWithWhite:0.75 alpha:1];
+//    }
+//    
+//    return _disabledTextColor;
+//}
 
 @end
