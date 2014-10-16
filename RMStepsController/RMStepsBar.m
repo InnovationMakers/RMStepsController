@@ -494,7 +494,7 @@
         
         if(CGRectContainsPoint(step.stepView.frame, touchLocation)) {
             NSInteger index = [self.stepDictionaries indexOfObject:aStepDict];
-            if(index < self.indexOfSelectedStep || (index == self.indexOfSelectedStep + 1 && index != [self.stepDictionaries indexOfObject:[self.stepDictionaries lastObject]])) {
+            if(index < self.indexOfSelectedStep) {
                 [self.delegate stepsBar:self shouldSelectStepAtIndex:index];
             }
         }
