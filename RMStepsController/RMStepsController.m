@@ -267,7 +267,10 @@
 }
 
 - (void)stepsBar:(RMStepsBar *)bar shouldSelectStepAtIndex:(NSInteger)index {
-    [self showStepViewController:[self.childViewControllers objectAtIndex:index] animated:YES];
+    NSInteger currentIndex = [self.childViewControllers indexOfObject:self.currentStepViewController];
+    if (currentIndex != [self.childViewControllers indexOfObject:[self.childViewControllers lastObject]]) {
+       [self showStepViewController:[self.childViewControllers objectAtIndex:index] animated:YES];
+    }
 }
 
 @end
